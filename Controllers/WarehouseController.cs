@@ -28,6 +28,12 @@ public class WarehouseController : ControllerBase
     {
         try
         {
+
+            if (dto.Amount <= 0)
+            {
+                return BadRequest("Amount must be greater than 0");
+            }
+
             await _connection.OpenAsync();
 
             var productCommand = new SqlCommand("SELECT * FROM Product WHERE Id = @Id", _connection);
